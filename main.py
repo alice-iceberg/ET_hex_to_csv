@@ -1,11 +1,9 @@
 import concurrent.futures
-import os
 
 import pandas as pd
 from tqdm import tqdm
-import tools
 
-import data_check
+import tools
 from process import process_raw_data
 
 
@@ -50,7 +48,7 @@ def main():
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for pid in tqdm(pid_list):
             filename = f'_mnt_storage_ET_data_cmp5_usr{pid}.csv'
-            executor.submit(process_raw_data, [f'campaign5_rawdata-01_07/{filename}', '01-07-2022'])
+            executor.submit(process_raw_data, [f'campaign5_rawdata_02-14/{filename}', '02-14-2022'])
 
 
 if __name__ == '__main__':
