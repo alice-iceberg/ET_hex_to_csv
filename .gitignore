@@ -2,7 +2,9 @@
 717participants_raw_data/
 campaign5_01-07-2022/
 campaign5_12-24-2021/
+campaign5_02-14-2022/
 campaign5_rawdata-01_07/
+campaign5_rawdata_02-14/
 extracted_features/
 missing_data/
 raw_data/
@@ -13,6 +15,7 @@ ema_clusters_pca.csv
 *.csv
 *.jpg
 *.png
+*.zip
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template

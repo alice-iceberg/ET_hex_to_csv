@@ -1,10 +1,12 @@
 import concurrent.futures
+import os
 
 import pandas as pd
 from tqdm import tqdm
 
 import tools
 from process import process_raw_data
+from extract_image import csv_to_image
 
 
 def accuracy_results(filename):
@@ -41,15 +43,23 @@ def get_missing_values_percentage(filename):
     df_miss.to_csv('FS_missing_campaign_4_5-WIN_2.csv')
 
 
-def main():
+def extract_all_data():
     pid_list = tools.IOS_PID_LIST
     pid_list.extend(tools.ANDROID_PID_LIST)
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for pid in tqdm(pid_list):
-            filename = f'_mnt_storage_ET_data_cmp5_usr{pid}.csv'
-            executor.submit(process_raw_data, [f'campaign5_rawdata_02-14/{filename}', '02-14-2022'])
+            filename = f'cmp5_usr{pid}.csv'
+            executor.submit(process_raw_data, [f'campaign5_rawdata_02-17/{filename}', '02-17-2022'])
+
+
+def extract_images(device_os):
+    user_folders = os.listdir(f'campaign5_02-17-2022/{device_os}')
+
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        for user_folder in tqdm(user_folders):
+            executor.submit(csv_to_image, user_folder)
 
 
 if __name__ == '__main__':
-    main()
+    extract_images('iOS')
