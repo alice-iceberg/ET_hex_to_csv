@@ -62,4 +62,28 @@ def extract_images(device_os):
 
 
 if __name__ == '__main__':
-    extract_images('iOS')
+    # filename_list = os.listdir('D:\IITP\Data\Raw-hex\campaign5_02-17-2022')
+    # print('Converting files...')
+    #
+    # for filename in tqdm(filename_list):
+    #     if os.stat(f'D:\IITP\Data\Raw-hex\campaign5_02-17-2022\{filename}').st_size == 0:
+    #         continue
+    #     df = pd.read_csv(f'D:\IITP\Data\Raw-hex\campaign5_02-17-2022\{filename}')
+    #     if len(df) > 0:
+    #
+    #         df.columns = ['id', 'timestamp', 'values']
+    #         df = df[df['id'] == 79]
+    #
+    #         df['values'] = df['values'].apply(lambda x: bytes.fromhex(x.split('0x')[1]).decode('utf-8'))
+    #     else:
+    #         df = pd.DataFrame(columns=['timestamp', 'values'])
+    #     df.to_csv(f'D:\IITP\Data\Raw-utf\campaign5_02-17-2022\{filename}')
+
+    print('Searching started...')
+    filename_list = os.listdir('D:\IITP\Data\Raw-utf\campaign5_02-17-2022')
+
+    for filename in tqdm(filename_list):
+        df = pd.read_csv(f'D:\IITP\Data\Raw-utf\campaign5_02-17-2022\{filename}')
+        df = df[df['values'].astype(str).str.contains("jin")]
+        if len(df)>0:
+            print(df, filename)
